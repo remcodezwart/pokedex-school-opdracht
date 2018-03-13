@@ -7,7 +7,9 @@ class App {
 
 	public function __construct()
 	{
+		session_start();
 		require '../application/core/controller.php';
+		require '../application/core/security.php';
 
 		$this->url = array_filter(explode('/', filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL)));
 		$this->url[1] = (empty($this->url[1]) ? 'pokemon' : $this->url[1] );
@@ -20,8 +22,6 @@ class App {
 			$controller = new $this->url[1]($this->url);
 
 			if (is_callable(array($controller, $this->functionToCall))) {
-				unset($this->url[1], $this->url[2]);
-
 				$controller->{$this->functionToCall}();
 				exit;
 			}

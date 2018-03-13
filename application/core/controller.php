@@ -9,7 +9,6 @@ class controller {
 		if (!empty($userInput)) $this->setUserInputData($userInput);	
 	}
 
-
 	public function setUserInputData($data)
 	{
 		self::$userInput = $data;
@@ -18,6 +17,13 @@ class controller {
 	protected function getUserInput()
 	{
 		return self::$userInput;
+	}
+
+	public function loadModel($model)
+	{
+		require '../application/core/model.php';
+		require '../application/model/'.$model.'.php';
+		$this->model = new $model;
 	}
 
 	public function render($page, $data = null)
