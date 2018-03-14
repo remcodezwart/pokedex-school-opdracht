@@ -1,5 +1,5 @@
 <?php
-class Pokemon extends controller {
+class PokemonController extends controller {
 
 	private $security;
 

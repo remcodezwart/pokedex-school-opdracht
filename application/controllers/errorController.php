@@ -1,5 +1,5 @@
 <?php
-class errorController extends controller {
+class ErrorController extends controller {
 	
 	public function pageNotFound() {
 		$this->render('errors/notFound');

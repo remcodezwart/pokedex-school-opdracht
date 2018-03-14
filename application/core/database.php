@@ -1,6 +1,6 @@
 <?php
 
-class database {
+class Database {
 
 	private static $conn;
 
@@ -13,8 +13,8 @@ class database {
 		$password = $config['password'];
 
 		try {
-		    $conn = new PDO("mysql:host=$servername;dbname=pokedex", $username, $password);
-		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		    self::$conn = new PDO("mysql:host=$servername;dbname=pokedex", $username, $password);
+		    self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e) {
 		    
 		}
@@ -22,7 +22,7 @@ class database {
 
 	public function getQueryBuilder()
 	{
-		require '../application/core/queryBuilder.php';
-		return new queryBuilder(self::$conn);
+		require '../application/core/QueryBuilder.php';
+		return new QueryBuilder(self::$conn);
 	}
 }

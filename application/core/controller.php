@@ -1,6 +1,6 @@
 <?php
 
-class controller {
+class Controller {
 
 	private static $userInput = [];
 
@@ -21,7 +21,7 @@ class controller {
 
 	public function loadModel($model)
 	{
-		require '../application/core/model.php';
+		require '../application/core/Model.php';
 		require '../application/model/'.$model.'.php';
 		$this->model = new $model;
 	}

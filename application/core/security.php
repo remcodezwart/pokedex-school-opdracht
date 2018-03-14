@@ -1,5 +1,5 @@
 <?php
-class security {
+class Security {
 	function generateCsrfToken()
 	{
 		$_SESSION['CRSF_TOKEN'] = md5(uniqid());

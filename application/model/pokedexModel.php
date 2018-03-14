@@ -1,5 +1,5 @@
 <?php
-class pokedexModel extends model
+class pokedexModel extends Model
 {
-	
+
 }
