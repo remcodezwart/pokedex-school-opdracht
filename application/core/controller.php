@@ -3,10 +3,12 @@
 class Controller {
 
 	private static $userInput = [];
+	private $security;
 
 	public function __construct($userInput = "")
 	{
 		if (!empty($userInput)) $this->setUserInputData($userInput);	
+		$this->security = new security;
 	}
 
 	public function setUserInputData($data)
@@ -23,7 +25,7 @@ class Controller {
 	{
 		require '../application/core/Model.php';
 		require '../application/model/'.$model.'.php';
-		$this->model = new $model;
+		$this->{$model} = new $model;
 	}
 
 	public function render($page, $data = null)

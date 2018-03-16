@@ -18,4 +18,20 @@ class Security {
 		} 
 		return false;	
 	}
+
+	public function filter($data)
+	{
+		if (is_string($data)) {
+			return htmlentities($data, ENT_QUOTES, 'UTF-8');
+		} else {
+			foreach ($data as $key => &$value) {
+				if (is_object($data)) {
+					$data->{$key} = $this->filter($value);		
+				} else if (is_array($data)) {
+					$value = $this->filter($value);
+				} 
+			}
+		}
+		return $data;
+	}
 }

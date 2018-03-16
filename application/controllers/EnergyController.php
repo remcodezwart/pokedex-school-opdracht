@@ -1,5 +1,5 @@
 <?php
-class PokemonController extends controller {
+class EnergyController extends controller {
 
 	public function __construct($userInput)
 	{
@@ -9,10 +9,13 @@ class PokemonController extends controller {
 
 	public function index()
 	{
-		$this->loadModel('pokedexModel');
-
-		$this->render('pokemon/index', array(
+		$this->render('energyTypes/index', array(
 			'crsf_token' => $this->security->getCsrfToken()
 		));
 	}
+
+	public function edit()
+	{
+		
+	} 
 }

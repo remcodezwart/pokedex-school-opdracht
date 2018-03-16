@@ -21,7 +21,11 @@ class App {
 
 			$this->url[1] .= 'Controller';
 
-			$controller = new $this->url[1]($this->url);
+			$controller = new $this->url[1](array(
+					'url'  => array('controller' => $this->url[1], 'method' => $this->url[2]),
+					'get'  => $_GET,
+					'post' => $_POST
+				));
 
 			if (is_callable(array($controller, $this->functionToCall))) {
 				$controller->{$this->functionToCall}();

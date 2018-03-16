@@ -1,0 +1,24 @@
+body {
+	background-color: #739ee2;
+}
+
+.container {
+	background-color:#4b86e5;
+	margin:0px 20%;
+}
+
+nav {
+	padding:5px;
+	background-color:white;
+}
+
+nav > a {
+	padding: 5px;
+	margin: 5px;
+	text-decoration: none;
+}
+
+nav > a:hover {
+	background-color:#01f0f9;
+}
+

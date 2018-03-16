@@ -4,8 +4,10 @@ class QueryBuilder extends database {
 	private $conn;
 	private $table = '';
 	private $where = array();
+	private $join = array();
 	private $limit;
 	private $result;
+	private $prepare;
 
 	public function __construct($conn)
 	{
@@ -33,6 +35,13 @@ class QueryBuilder extends database {
 
 	public function orWhere($key, $value, $operator = '=') {
 		$this->where[] = (object)array('key' => $key, 'value' => $value, 'operator' => $operator, 'mode'=> 'OR');
+		return $this;
+	}
+
+	public function join($table, $colums, $type = 'INNER JOIN')
+	{
+		$type = strtoupper($type);
+		$this->join[] = (object)array('table' => $table, 'colum' => $colums, 'type' => $type);
 		return $this;
 	}
 
@@ -74,17 +83,30 @@ class QueryBuilder extends database {
 		$this->run($query, $paramaters);
 	}
 
-	public function get()
+	public function get($selector = '*')
 	{
-		$query .= 'SELECT * FROM '.$this->table.$this->addWhere($query).$this->addLimit($query);
+		$this->result = '';
+		$query = '';
+		$query .= 'SELECT '. $selector .' FROM '.$this->table.$this->addWhere($query).$this->addLimit($query).$this->addJoin();
+		$this->run($query, $this->addWhereParamaters());
 
-		$prepared = $this->run($query, $this->addWhereParamaters());
+		return $this;
 	}
 
 	private function run($query, $paramaters = array())
 	{
 		$this->prepare = $this->conn->prepare($query);
 		$this->prepare->execute($paramaters);
+		$this->reset();
+	}
+
+	private function addJoin()
+	{
+		$join = ' ';
+		foreach ($this->join as $joins) {
+			$join .= $joins->type.' '.$joins->table.' ON '.$joins->colum.' ';
+		}
+		return $join;
 	}
 
 	private function addWhere()
@@ -119,8 +141,16 @@ class QueryBuilder extends database {
 
 	public function result()
 	{
-		if (empty($this->result)) $this->result = $this->prepared->fetchAll(PDO::FETCH_ASSOC);
+		if (empty($this->result)) $this->result = $this->prepare->fetchAll(PDO::FETCH_ASSOC);
 		return $this->result;
+	}
+
+	private function reset()
+	{
+		$this->table =   '';
+		$this->where =   array();
+		$this->join  =   array();
+		$this->limit =   '';
 	}
 
 }
