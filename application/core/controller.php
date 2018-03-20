@@ -8,7 +8,14 @@ class Controller {
 	public function __construct($userInput = "")
 	{
 		if (!empty($userInput)) $this->setUserInputData($userInput);	
-		$this->security = new security;
+
+		require '../application/core/Security.php';
+	}
+
+	public function redirect($location)
+	{
+		Header('location: '.$location);
+		exit;
 	}
 
 	public function setUserInputData($data)

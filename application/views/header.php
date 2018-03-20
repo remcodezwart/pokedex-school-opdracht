@@ -8,6 +8,8 @@
 	<body>
 		<div class="container">
 			<nav>
-				<a href="/pokemon/index">Index</a>
-				<a href="/pokemon/new">Nieuwe pokemon</a>	
+				<a href="/pokemon/index">Alle pokemon</a>
+				<a href="/pokemon/create">Nieuwe pokemon</a>	
+				<a href="/energy/index">Alle energy types</a>
+				<a href="/energy/create">Nieuwe energy type</a>
 			</nav>

@@ -62,13 +62,13 @@ class QueryBuilder extends database {
 			$i++;
 		}
 		$query =  'INSERT INTO '.$this->table.'('.$fields.') VALUES ('.$values.')';
-		$this->run($query, $paramaters);
+		return $this->run($query, $paramaters);
 	}
 
 	public function delete()
 	{
 		$query =  'DELETE FROM '.$this->table.$this->addWhere();
-		$this->run($query, $this->addWhereParamaters());
+		return $this->run($query, $this->addWhereParamaters());
 	}
 
 	public function edit($paramaters)
@@ -80,7 +80,7 @@ class QueryBuilder extends database {
 		}
 		$query .= implode(' ,', $setParamaters).$this->addWhere();
 		$paramaters = $this->addWhereParamaters($paramaters);
-		$this->run($query, $paramaters);
+		return $this->run($query, $paramaters);
 	}
 
 	public function get($selector = '*')
@@ -96,8 +96,9 @@ class QueryBuilder extends database {
 	private function run($query, $paramaters = array())
 	{
 		$this->prepare = $this->conn->prepare($query);
-		$this->prepare->execute($paramaters);
+		$result = $this->prepare->execute($paramaters);
 		$this->reset();
+		return $result;
 	}
 
 	private function addJoin()
